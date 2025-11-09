@@ -1,0 +1,82 @@
+
+.task-card {
+  border: 1px solid #ffffffff;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  opacity: 0.9;
+}
+
+.task-card {
+  position: relative; 
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.edit-button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #575755; 
+  transition: transform 0.2s, color 0.2s;
+}
+
+.edit-button:hover { 
+  color: #2b6cb0;
+  transform: scale(1.1); 
+}
+
+.title {
+  background-color: #ffff;
+  border-radius: 8px;
+  border: #ffff;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.description {
+  background-color: #ffff;
+  border-radius: 8px;
+  border: #ffff;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #00000055;
+}
+
+.trash-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  text-align: right;
+  color: #555; 
+  transition: color 0.2s ease, transform 0.2s ease;
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+}
+
+.trash-button:hover {
+  color: #e63946; 
+  transform: scale(1.1); 
+}
+
+.trash-button:active {
+  transform: scale(0.95);
+}
+
