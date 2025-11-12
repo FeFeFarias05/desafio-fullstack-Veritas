@@ -36,13 +36,10 @@ async function handleResponse<T = any>(res: Response): Promise<T | null> {
   return null;
 }
 
-// MARK: - Listar tarefas
 export async function getTasks(): Promise<Task[]> {
   const res = await fetch(API_URL);
   return handleResponse<Task[]>(res) as Promise<Task[]>;
 }
-
-// MARK: - Criar tarefa
 export async function createTask(task: Partial<Task>): Promise<Task> {
   const res = await fetch(API_URL, {
     method: "POST",
@@ -52,7 +49,6 @@ export async function createTask(task: Partial<Task>): Promise<Task> {
   return handleResponse<Task>(res) as Promise<Task>;
 }
 
-// MARK: - Atualizar tarefa
 export async function updateTask(id: number | string, updatedTask: Partial<Task>): Promise<Task | null> {
   const res = await fetch(`${API_URL}${id}`, {
     method: "PUT",
@@ -62,7 +58,6 @@ export async function updateTask(id: number | string, updatedTask: Partial<Task>
   return handleResponse<Task>(res);
 }
 
-// MARK: - Deletar tarefa
 export async function deleteTask(id: number | string): Promise<null> {
   const res = await fetch(`${API_URL}${id}`, { method: "DELETE" });
   return handleResponse<null>(res);

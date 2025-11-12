@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// MARK: Função GET - Lista todas as tasks existentes
+
 func getTasks(w http.ResponseWriter, r *http.Request) {
 	store.Lock()         
 	defer store.Unlock() //evita deadlock
@@ -20,7 +20,7 @@ func getTasks(w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusOK, tasks)
 }
 
-// MARK: Função POST - Cria uma nova task
+
 func createTask(w http.ResponseWriter, r *http.Request) {
 	var task Task
 
@@ -43,7 +43,7 @@ func createTask(w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusCreated, task)
 }
 
-// MARK: Função UPDATE - Atualiza uma task existente
+
 func updateTask(w http.ResponseWriter, r *http.Request) {
 
 	id, decodeError := getIDFromPath(r.URL.Path)
@@ -83,7 +83,7 @@ func updateTask(w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusOK, updatedTask)
 }
 
-// MARK: Função DELETE - Deleta uma task existente
+
 func deleteTask(w http.ResponseWriter, r *http.Request) {
 	id, decodeError := getIDFromPath(r.URL.Path)
 	if decodeError != nil {
@@ -104,7 +104,7 @@ func deleteTask(w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusNoContent, nil) 
 }
 
-//MARK: Função Utilitária - Busca o ID em uma URL
+
 func getIDFromPath(path string) (int, error) {
 	path = strings.TrimSuffix(path, "/")
 	parts := strings.Split(path, "/")
@@ -112,7 +112,7 @@ func getIDFromPath(path string) (int, error) {
 	return strconv.Atoi(idStr)
 }
 
-//MARK: Função Utilitária - Verifica se o status é válido
+
 func isValidStatus(status string) bool {
 	switch status {
 	case statusToDo, statusInProgress, statusDone:
@@ -134,7 +134,7 @@ func respondJSON(w http.ResponseWriter, code int, payload interface{}) {
 	}
 }
 
-//MARK: Função Handler - Gerencia as requisições para /tasks
+
 func tasksHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
