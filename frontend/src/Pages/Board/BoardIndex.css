@@ -1,0 +1,53 @@
+@import "../../assets/colors.css";
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 20;
+  background-color: var(--color-primary-light);
+}
+
+
+.titleVeritas {
+font-family: Arial, sans-serif;
+font-size: 50px;
+font-weight: bold;
+color: var(--color-text-light);
+text-align: center;
+}
+
+.button-addTask {
+background-color: var(--color-white);
+border-radius: 8px;
+border: var(--color-white);
+padding: 16px;
+font-family: Arial, sans-serif;
+font-size: 16px;
+font-weight: 800;
+color: var(--color-text-light);
+}
+
+.columns {
+display: flex; 
+gap: 20px; 
+margin-top: 20px;  
+}
+
+.modal {
+position: fixed; 
+left: 50%; 
+top: 50%; 
+transform: translate(-50%, -50%);
+z-index: 1000;
+}
+
+.modalBackground {
+position: fixed;
+inset: 0;
+background-color: var(--color-overlay-dark);
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px); 
+z-index: 999;
+}
