@@ -1,0 +1,85 @@
+@import "../../assets/colors.css";
+
+
+.add-page {
+  background-color: var(--color-primary-light);
+  width: 500px;
+  height: auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.add-header {
+  margin-top: 0;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--color-text-light);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-label + .form-label {
+  margin-top: 12px;
+}
+
+.label-title {
+  font-size: 16px;
+  color: var(--color-text-light);
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+.input {
+  width: 100%;
+  padding: 16px;
+  margin-top: 6px;
+  box-sizing: border-box;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  color: var(--color-black-medium);
+  border-radius: 8px;
+  border: 1px solid var(--color-overlay-light);
+  background-color: var(--color-white);
+}
+
+.input.error {
+  border: 2px solid var(--color-error-light);
+  box-shadow: 0 0 0 4px var(--color-error-overlay);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-gray-medium);
+  box-shadow: 0 0 0 4px var(--color-gray-overlay);
+}
+
+::selection {
+  background: var(--color-gray-light);
+  color: inherit;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.button-submit {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+  background-color: var(--color-white);
+  color: var(--color-text-light);
+}
+
+
