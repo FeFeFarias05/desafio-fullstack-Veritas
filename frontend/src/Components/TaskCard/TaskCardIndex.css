@@ -1,10 +1,11 @@
+@import "../../assets/colors.css";
 
 .task-card {
-  border: 1px solid #ffffffff;
+  border: 1px solid var(--color-white-transparent);
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 10px;
-  background-color: #fff;
+  background-color: var(--color-white);
   opacity: 0.9;
 }
 
@@ -28,34 +29,34 @@
   border: none;
   cursor: pointer;
   padding: 4px;
-  color: #575755; 
+  color: var(--color-primary-dark); 
   transition: transform 0.2s, color 0.2s;
 }
 
 .edit-button:hover { 
-  color: #2b6cb0;
+  color: var(--color-primary-blue);
   transform: scale(1.1); 
 }
 
 .title {
-  background-color: #ffff;
+  background-color: var(--color-white);
   border-radius: 8px;
-  border: #ffff;
+  border: var(--color-white);
   font-family: Arial, sans-serif;
   font-size: 24px;
   font-weight: 800;
-  color: #000;
+  color: var(--color-black);
   margin-bottom: 8px;
 }
 
 .description {
-  background-color: #ffff;
+  background-color: var(--color-white);
   border-radius: 8px;
-  border: #ffff;
+  border: var(--color-white);
   font-family: Arial, sans-serif;
   font-size: 16px;
   font-weight: 800;
-  color: #00000055;
+  color: var(--color-black-light);
 }
 
 .trash-button {
@@ -64,7 +65,7 @@
   cursor: pointer;
   padding: 6px;
   text-align: right;
-  color: #555; 
+  color: var(--color-gray-dark); 
   transition: color 0.2s ease, transform 0.2s ease;
   position: absolute;
   right: 8px;
@@ -72,7 +73,7 @@
 }
 
 .trash-button:hover {
-  color: #e63946; 
+  color: var(--color-error); 
   transform: scale(1.1); 
 }
 
