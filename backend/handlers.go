@@ -2,24 +2,23 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
-
 func getTasks(w http.ResponseWriter, r *http.Request) {
-	store.Lock()         
-	defer store.Unlock() //evita deadlock
-
+	store.Lock()
+	defer store.Unlock()
 	tasks := make([]Task, 0, len(store.tasks))
 	for _, task := range store.tasks {
 		tasks = append(tasks, task)
 	}
+	
 
 	respondJSON(w, http.StatusOK, tasks)
 }
-
 
 func createTask(w http.ResponseWriter, r *http.Request) {
 	var task Task
@@ -38,11 +37,15 @@ func createTask(w http.ResponseWriter, r *http.Request) {
 	defer store.Unlock()
 	task.ID = store.nextID
 	store.nextID++
-	task.Status = statusToDo 
+	task.Status = statusToDo
 	store.tasks[task.ID] = task
+
+	if error := saveTasksToFile(); error != nil {
+		log.Printf("erro ao salvar tasks: %v", error)
+	}
+
 	respondJSON(w, http.StatusCreated, task)
 }
-
 
 func updateTask(w http.ResponseWriter, r *http.Request) {
 
@@ -51,7 +54,7 @@ func updateTask(w http.ResponseWriter, r *http.Request) {
 
 	if decodeError != nil {
 		respondError(w, http.StatusBadRequest, "ID da task inválido na URL")
-		return 
+		return
 	}
 
 	if decodeError := json.NewDecoder(r.Body).Decode(&updatedTask); decodeError != nil {
@@ -80,9 +83,13 @@ func updateTask(w http.ResponseWriter, r *http.Request) {
 
 	updatedTask.ID = id
 	store.tasks[id] = updatedTask
+
+	if error := saveTasksToFile(); error != nil {
+		log.Printf("erro ao salvar tasks: %v", error)
+	}
+
 	respondJSON(w, http.StatusOK, updatedTask)
 }
-
 
 func deleteTask(w http.ResponseWriter, r *http.Request) {
 	id, decodeError := getIDFromPath(r.URL.Path)
@@ -101,9 +108,13 @@ func deleteTask(w http.ResponseWriter, r *http.Request) {
 	}
 
 	delete(store.tasks, id)
-	respondJSON(w, http.StatusNoContent, nil) 
-}
+	
+	if error := saveTasksToFile(); error != nil {
+		log.Printf("erro ao salvar tasks: %v", error)
+	}
 
+	respondJSON(w, http.StatusNoContent, nil)
+}
 
 func getIDFromPath(path string) (int, error) {
 	path = strings.TrimSuffix(path, "/")
@@ -111,7 +122,6 @@ func getIDFromPath(path string) (int, error) {
 	idStr := parts[len(parts)-1]
 	return strconv.Atoi(idStr)
 }
-
 
 func isValidStatus(status string) bool {
 	switch status {
@@ -133,7 +143,6 @@ func respondJSON(w http.ResponseWriter, code int, payload interface{}) {
 		json.NewEncoder(w).Encode(payload)
 	}
 }
-
 
 func tasksHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {

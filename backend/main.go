@@ -12,8 +12,11 @@ func main() {
 
 	mux.HandleFunc("/tasks/", tasksHandler) 
 
-	
-	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) { //verificar se o servidor está no ar
+	if error := loadTasksFromFile(); error != nil {
+		log.Printf("Erro ao carregar as tasks: %v\n", error)
+	}
+
+	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) { 
 		respondJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 	})
 	corsHandler := enableCORS(mux)
