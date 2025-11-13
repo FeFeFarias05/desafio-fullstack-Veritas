@@ -26,7 +26,7 @@ Sistema de gerenciamento de tarefas no estilo Kanban, desenvolvido com Go no bac
 
 ---
 
-## 🧩 Como Rodar o Projeto
+## Como Rodar o Projeto
 
 ### � **Opção 1: Com Docker (Recomendado)**
 
@@ -42,12 +42,14 @@ git clone https://github.com/FeFeFarias05/desafio-fullstack-Veritas.git
 cd desafio-fullstack-Veritas
 ```
 
-2. **Suba os containers**
+2. **Abra o Launch Docker**
+
+3. **Suba os containers**
 ```bash
 docker compose up -d
 ```
 
-3. **Acesse a aplicação**
+4. **Acesse a aplicação**
 - Frontend: **http://localhost:5173**
 - Backend API: **http://localhost:8080**
 
