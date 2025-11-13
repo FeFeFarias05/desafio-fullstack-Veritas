@@ -1,81 +1,288 @@
-🗂️ Desafio Fullstack — Mini Kanban de Tarefas  
+# Desafio Fullstack — Mini Kanban de Tarefas
+
+Sistema de gerenciamento de tarefas no estilo Kanban, desenvolvido com Go no backend e React no frontend.
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Backend
-- [Go (Golang)](https://go.dev/)
-- Servidor HTTP nativo (`net/http`)
-- CORS habilitado
-- Armazenamento em memória (com `map` + `Mutex`)
+- **[Go (Golang)](https://go.dev/)** - Linguagem de programação
+- **net/http** - Servidor HTTP nativo
+- **CORS** - Habilitado para comunicação com frontend
+- **Persistência** - Arquivo JSON (`tasks.json`)
+- **Concorrência** - Mutex para gerenciamento seguro de dados
 
 ### Frontend
-- [React](https://react.dev/)
-- [Vite](https://vitejs.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- CSS modularizado
-- Fetch API para comunicação com o backend
+- **[React](https://react.dev/)** - Biblioteca para interfaces
+- **[Vite](https://vitejs.dev/)** - Build tool e dev server
+- **[TypeScript](https://www.typescriptlang.org/)** - Tipagem estática
+- **CSS Modularizado** - Estilização componentizada
+- **Fetch API** - Comunicação com backend
+
+### Infraestrutura
+- **Docker & Docker Compose** - Containerização
+- **Nginx** - Servidor web e proxy reverso
 
 ---
 
 ## 🧩 Como Rodar o Projeto
 
-### 🖥️ **1. Clonar o repositório**
+### � **Opção 1: Com Docker (Recomendado)**
 
+#### Pré-requisitos
+- Docker instalado
+- Docker Compose instalado
+
+#### Passo a passo
+
+1. **Clone o repositório**
 ```bash
-git clone https://github.com/<seu-usuario>/desafio-fullstack-veritas.git
-cd desafio-fullstack-veritas
+git clone https://github.com/FeFeFarias05/desafio-fullstack-Veritas.git
+cd desafio-fullstack-Veritas
+```
+
+2. **Suba os containers**
+```bash
+docker compose up -d
+```
+
+3. **Acesse a aplicação**
+- Frontend: **http://localhost:5173**
+- Backend API: **http://localhost:8080**
+
+#### Comandos úteis
+```bash
+# Parar os containers
+docker compose down
+
+# Ver logs em tempo real
+docker compose logs -f
+
+# Reconstruir após mudanças no código
+docker compose up --build -d
+
+# Ver status dos containers
+docker compose ps
 ```
 
 ---
 
-### 🧠 **2. Rodar o Backend (Go)**
+### 🔧 **Opção 2: Desenvolvimento Local (Sem Docker)**
 
-Entre na pasta `backend`:
+#### Pré-requisitos
+- Go 1.24+ instalado
+- Node.js 20+ instalado
+- npm ou yarn
 
+#### Backend
+
+1. Entre na pasta do backend
 ```bash
 cd backend
+```
+
+2. Instale as dependências
+```bash
+go mod tidy
+```
+
+3. Execute o servidor
+```bash
 go run .
 ```
 
-O servidor será iniciado em:  
-👉 **http://localhost:8080**
+O backend estará disponível em: **http://localhost:8080**
 
-Endpoints disponíveis:
-- `GET /tasks`
-- `POST /tasks`
-- `PUT /tasks/:id`
-- `DELETE /tasks/:id`
+**Endpoints disponíveis:**
+- `GET /tasks/` - Lista todas as tarefas
+- `POST /tasks/` - Cria nova tarefa
+- `PUT /tasks/:id` - Atualiza tarefa existente
+- `DELETE /tasks/:id` - Deleta tarefa
+- `GET /health` - Health check
 
----
+#### Frontend
 
-### 💻 **3. Rodar o Frontend (React + Vite)**
-
-Em outro terminal, entre na pasta `frontend`:
-
+1. Em outro terminal, entre na pasta do frontend
 ```bash
 cd frontend
+```
+
+2. Instale as dependências
+```bash
 npm install
+```
+
+3. Execute o servidor de desenvolvimento
+```bash
 npm run dev
 ```
 
-O app estará disponível em:  
-👉 **http://localhost:5173**
+O frontend estará disponível em: **http://localhost:5173**
 
 ---
 
-## 🧠 Fluxo de uso
+## Funcionalidades
 
-1. Acesse o frontend pelo navegador  
-2. Adicione novas tarefas informando título e descrição  
-3. Mova entre colunas (drag and drop)  
-4. Edite ou exclua tarefas  
-5. Os dados são persistidos temporariamente em memória pelo backend
+- Criar tarefas com título e descrição
+- Editar tarefas existentes
+- Deletar tarefas
+- Arrastar e soltar tarefas entre colunas (Drag & Drop)
+- Três status: "A Fazer", "Em Progresso" e "Concluídas"
+- Persistência em arquivo JSON
+- Interface responsiva
 
 ---
 
-## 👩‍💻 Autoria
+## Decisões Técnicas
 
-Desenvolvido por **Fernanda Farias Uberti**  
-Desafio técnico — Veritas Consultoria Empresarial  
+### Backend (Go)
+
+**Por que Go?**
+- Performance superior e baixo consumo de memória
+- Concorrência nativa com goroutines
+- Compilação estática facilita deploy
+- Biblioteca padrão robusta para HTTP
+
+**Arquitetura:**
+- **Separação de responsabilidades**: `main.go`, `handlers.go`, `models.go`, `storage.go`
+- **Mutex para concorrência**: Garante thread-safety nas operações CRUD
+- **Persistência em JSON**: Solução simples e eficaz para o escopo do desafio
+- **CORS habilitado**: Permite comunicação cross-origin com frontend
+
+**Estrutura de arquivos:**
+```
+backend/
+├── main.go       # Configuração do servidor e rotas
+├── handlers.go   # Handlers HTTP (CRUD)
+├── models.go     # Modelos de dados e constantes
+├── storage.go    # Persistência em arquivo JSON
+└── tasks.json    # Armazenamento das tarefas
+```
+
+### Frontend (React + TypeScript)
+
+**Por que React + TypeScript?**
+- Componentização reutilizável
+- Tipagem estática previne erros
+- Vite oferece HMR rápido e build otimizado
+- Ecossistema maduro e bem documentado
+
+**Arquitetura:**
+- **Componentes isolados**: Cada componente tem sua responsabilidade única
+- **API Client centralizado**: Arquivo `tasks.ts` gerencia todas as requisições
+- **Estados locais**: useState para gerenciamento simples
+- **Drag & Drop nativo**: Usando eventos HTML5 (sem bibliotecas externas)
+
+**Estrutura de arquivos:**
+```
+frontend/src/
+├── main.jsx           # Ponto de entrada
+├── API/
+│   └── tasks.ts       # Cliente HTTP para backend
+├── Components/
+│   ├── Column.tsx     # Coluna do Kanban
+│   └── TaskCard/      # Card de tarefa
+├── Pages/
+│   ├── Board/         # Quadro principal
+│   └── AddTask/       # Modal de criar/editar
+└── assets/
+    └── colors.css     # Variáveis de cores
+```
+
+### Docker & Infraestrutura
+
+**Multi-stage builds:**
+- Reduz tamanho final das imagens
+- Separa dependências de build do runtime
+
+**Nginx como proxy reverso:**
+- Resolve problema de CORS em produção
+- Serve arquivos estáticos do React
+- Roteia `/api/*` para o backend Go
+- Permite deploy em uma única porta (5173)
+
+**Docker Compose:**
+- Orquestra backend + frontend
+- Network isolada entre containers
+- Volume para persistir `tasks.json`
+- Restart automático em caso de falha
+
+---
+
+## Limitações Conhecidas
+
+### Persistência
+- Dados armazenados apenas em arquivo JSON
+- Não há backup automático
+- Concorrência limitada (lock global)
+
+### Autenticação
+- Sem sistema de login/autenticação
+- Todas as tarefas são públicas
+
+### Funcionalidades
+- Sem suporte a múltiplos usuários
+- Sem histórico de alterações
+- Sem filtros ou busca
+- Sem paginação (pode ficar lento com muitas tarefas)
+
+### Testes
+- Sem testes unitários
+- Sem testes de integração
+
+---
+
+## Melhorias Futuras
+
+- Adicionar testes unitários e de integração
+- Implementar tratamento de erros mais robusto
+- Adicionar loading states no frontend
+- Validação de formulários mais completa
+- Confirmação antes de deletar tarefas
+- Migrar para banco de dados relacional (PostgreSQL)
+- Utilizar bibliotecas para o frontend
+
+---
+
+## Estrutura do Projeto
+
+```
+desafio-fullstack-Veritas/
+├── backend/
+│   ├── Dockerfile
+│   ├── go.mod
+│   ├── main.go
+│   ├── handlers.go
+│   ├── models.go
+│   ├── storage.go
+│   └── tasks.json
+├── frontend/
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── .env
+│   └── src/
+│       ├── main.jsx
+│       ├── API/
+│       ├── Components/
+│       ├── Pages/
+│       └── assets/
+├── docs/
+│   ├── README.md
+│   ├── user-flow.md (diagrama obrigatório)
+│   └── data-flow.md (diagrama opcional)
+├── docker-compose.yml
+└── README.md
+```
+
+## 📊 Diagramas
+
+A documentação visual do sistema está disponível na pasta **`/docs`**:
+
+- **User Flow** - Fluxo de interação do usuário com o sistema
+- **Data Flow** - Arquitetura e fluxo de dados entre componentes
+
+> ⚠️ **Importante**: Os diagramas estão em formato Mermaid (`.md`). Para visualizá-los como PNG, siga as instruções em `/docs/README.md`
+
