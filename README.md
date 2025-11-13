@@ -286,5 +286,5 @@ A documentação visual do sistema está disponível na pasta **`/docs`**:
 - **User Flow** - Fluxo de interação do usuário com o sistema
 - **Data Flow** - Arquitetura e fluxo de dados entre componentes
 
-> ⚠️ **Importante**: Os diagramas estão em formato Mermaid (`.md`). Para visualizá-los como PNG, siga as instruções em `/docs/README.md`
+
 
