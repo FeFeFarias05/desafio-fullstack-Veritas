@@ -28,7 +28,7 @@ Sistema de gerenciamento de tarefas no estilo Kanban, desenvolvido com Go no bac
 
 ## Como Rodar o Projeto
 
-### � **Opção 1: Com Docker (Recomendado)**
+### **Opção 1: Com Docker (Recomendado)**
 
 #### Pré-requisitos
 - Docker instalado
@@ -70,7 +70,7 @@ docker compose ps
 
 ---
 
-### 🔧 **Opção 2: Desenvolvimento Local (Sem Docker)**
+### **Opção 2: Desenvolvimento Local (Sem Docker)**
 
 #### Pré-requisitos
 - Go 1.24+ instalado
@@ -279,7 +279,7 @@ desafio-fullstack-Veritas/
 └── README.md
 ```
 
-## 📊 Diagramas
+## Diagramas
 
 A documentação visual do sistema está disponível na pasta **`/docs`**:
 
