@@ -1,0 +1,17 @@
+services:
+  backend:
+    build: ./backend
+    container_name: kanban-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/tasks.json:/app/tasks.json
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: kanban-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend

@@ -1,9 +1,14 @@
 {
   "1": {
     "id": 1,
-    "title": "Criar tab bar",
-    "description": "A tab bar deve conter acesso a home, perfil, pesquisar e histórico",
+    "title": "Criar tab bar para a aplicação web",
+    "description": "Ela deve conter atalhos para o perfil, home, pesquisar e comunidade",
+    "status": "toDo"
+  },
+  "2": {
+    "id": 2,
+    "title": "criar infraestrutura na aws",
+    "description": "utilizar Terraform",
     "status": "toDo"
   }
- 
 }

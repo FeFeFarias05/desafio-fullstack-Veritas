@@ -1,5 +1,5 @@
-
-const API_URL = "http://localhost:8080/tasks/";
+const API_BASE = (import.meta.env.VITE_API_URL ?? "http://localhost:8080").replace(/\/$/, "");
+const TASKS_URL = `${API_BASE}/tasks`;
 
 export type Task = {
   id: number;
@@ -37,11 +37,11 @@ async function handleResponse<T = any>(res: Response): Promise<T | null> {
 }
 
 export async function getTasks(): Promise<Task[]> {
-  const res = await fetch(API_URL);
+  const res = await fetch(`${TASKS_URL}/`);
   return handleResponse<Task[]>(res) as Promise<Task[]>;
 }
 export async function createTask(task: Partial<Task>): Promise<Task> {
-  const res = await fetch(API_URL, {
+  const res = await fetch(`${TASKS_URL}/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(task),
@@ -50,7 +50,7 @@ export async function createTask(task: Partial<Task>): Promise<Task> {
 }
 
 export async function updateTask(id: number | string, updatedTask: Partial<Task>): Promise<Task | null> {
-  const res = await fetch(`${API_URL}${id}`, {
+  const res = await fetch(`${TASKS_URL}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedTask),
@@ -59,6 +59,6 @@ export async function updateTask(id: number | string, updatedTask: Partial<Task>
 }
 
 export async function deleteTask(id: number | string): Promise<null> {
-  const res = await fetch(`${API_URL}${id}`, { method: "DELETE" });
+  const res = await fetch(`${TASKS_URL}/${id}`, { method: "DELETE" });
   return handleResponse<null>(res);
 }
